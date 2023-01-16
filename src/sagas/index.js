@@ -1,4 +1,8 @@
-import { takeEvery, put } from 'redux-saga/effects';
+import { take, put, call } from 'redux-saga/effects';
+
+function* byebyeSaga() {
+    yield put({ type: 'BYE' });
+}
 
 function* workerSaga() {
     console.log('Hi from worker');
@@ -7,7 +11,10 @@ function* workerSaga() {
 }
 //watcher saga
 function* rootSaga() {
-    yield takeEvery('HELLO', workerSaga);
+    yield take('LOGIN');
+    yield call(workerSaga);
+    yield take('LOGOUT');
+    yield call(byebyeSaga);
 }
 //watcher saga -> action -> worker saga
 export default rootSaga;
