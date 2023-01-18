@@ -1,20 +1,17 @@
-import { take, put, call } from 'redux-saga/effects';
+import { takeEvery } from 'redux-saga/effects';
+import { IMAGES } from '../constants';
 
-function* byebyeSaga() {
-    yield put({ type: 'BYE' });
+function* handleImagesLoad() {
+    console.log('fetching images from unsplash');
 }
 
-function* workerSaga() {
-    console.log('Hi from worker');
-    console.log({ type: 'ACTION_FROM_WORKER' });
-    yield put({ type: 'ACTION_FROM_WORKER' });
+function* handleDang() {
+    console.log('Dang');
 }
 //watcher saga
 function* rootSaga() {
-    yield take('LOGIN');
-    yield call(workerSaga);
-    yield take('LOGOUT');
-    yield call(byebyeSaga);
+    yield takeEvery(IMAGES.LOAD, handleImagesLoad); //nonblocking event.
+    yield takeEvery('DANG', handleDang);
 }
 //watcher saga -> action -> worker saga
 export default rootSaga;
