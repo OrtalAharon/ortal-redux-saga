@@ -1,4 +1,4 @@
-import { takeEvery } from 'redux-saga/effects';
+import { take, call } from 'redux-saga/effects';
 import { IMAGES } from '../constants';
 
 function* handleImagesLoad() {
@@ -10,8 +10,10 @@ function* handleDang() {
 }
 //watcher saga
 function* rootSaga() {
-    yield takeEvery(IMAGES.LOAD, handleImagesLoad); //nonblocking event.
-    yield takeEvery('DANG', handleDang);
+    yield take('DANG');
+    yield call(handleDang);
+    yield take(IMAGES.LOAD);
+    yield call(handleImagesLoad);
 }
 //watcher saga -> action -> worker saga
 export default rootSaga;
