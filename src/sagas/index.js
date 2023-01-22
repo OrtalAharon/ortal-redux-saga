@@ -1,19 +1,17 @@
-import { take, call } from 'redux-saga/effects';
-import { IMAGES } from '../constants';
+import imagesSaga from './imagesSaga';
 
-function* handleImagesLoad() {
-    console.log('fetching images from unsplash');
-}
+export default imagesSaga;
 
-function* handleDang() {
-    console.log('Dang');
-}
-//watcher saga
-function* rootSaga() {
-    yield take('DANG');
-    yield call(handleDang);
-    yield take(IMAGES.LOAD);
-    yield call(handleImagesLoad);
-}
-//watcher saga -> action -> worker saga
-export default rootSaga;
+// import { takeEvery } from 'redux-saga/effects';
+// import { IMAGES } from '../constants';
+
+// function* handleImagesLoad() {
+//     console.log('fetching images from unsplash');
+// }
+
+// //watcher saga
+// function* rootSaga() {
+//     yield takeEvery(IMAGES.LOAD, handleImagesLoad);
+// }
+// //watcher saga -> action -> worker saga
+// export default rootSaga;
